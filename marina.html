@@ -6,31 +6,26 @@
     <title>Для тебя 💖</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: "Comic Sans MS", cursive, sans-serif;
             text-align: center;
-            background: url('https://source.unsplash.com/1600x900/?flowers') no-repeat center center fixed;
-            background-size: cover;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
             color: #5a3d5c;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            margin: 0;
+            overflow: hidden;
         }
         .container {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             max-width: 400px;
-        }
-        img {
-            width: 150px;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
         }
         button {
             background: #ff7597;
@@ -40,72 +35,144 @@
             font-size: 18px;
             border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s;
+            margin-top: 10px;
+            transition: 0.3s;
         }
         button:hover {
             background: #e34b6e;
+            transform: scale(1.1);
+        }
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background: #ff4d6d;
+            border-radius: 50px 50px 0 0;
+        }
+        .heart::before {
+            left: 50px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+        .cat {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: #f5c6aa;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .ear {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #f5c6aa;
+            top: -20px;
+        }
+        .ear.left {
+            left: -5px;
+            border-radius: 50% 50% 0 0;
+        }
+        .ear.right {
+            right: -5px;
+            border-radius: 50% 50% 0 0;
+        }
+        .eye {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: black;
+            border-radius: 50%;
+            top: 40px;
+        }
+        .eye.left {
+            left: 25px;
+        }
+        .eye.right {
+            right: 25px;
+        }
+        .nose {
+            position: absolute;
+            width: 10px;
+            height: 7px;
+            background: pink;
+            top: 55px;
+            left: 45px;
+            border-radius: 50%;
+        }
+        .whiskers {
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: black;
+            top: 60px;
+        }
+        .whiskers.left {
+            left: -35px;
+        }
+        .whiskers.right {
+            right: -35px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://placekitten.com/300/200" alt="Милый котик">
-        <h2>Привет! 🐱</h2>
-        <p>Ты мне очень нравишься, и у меня есть для тебя маленькое путешествие. Готова?</p>
-        <button onclick="nextPage()">Далее 💖</button>
-    </div>
+    <div class="heart"></div>
     
+    <div class="container">
+        <h2 id="title">Привет! 🐱</h2>
+        <p id="text">Ты мне очень нравишься, и у меня есть для тебя маленькое путешествие. Готова?</p>
+        <button id="nextButton" onclick="nextPage()">Далее 💖</button>
+    </div>
     <script>
         let page = 1;
+        let noButton;
         function nextPage() {
-            const container = document.querySelector('.container');
+            const title = document.getElementById("title");
+            const text = document.getElementById("text");
+            const button = document.getElementById("nextButton");
             if (page === 1) {
-                container.innerHTML = `
-                    <img src="https://placekitten.com/301/200" alt="Еще один котик">
-                    <h2>Ты особенная 💕</h2>
-                    <p>Мне с тобой всегда тепло и радостно, как будто котик мурчит рядом.</p>
-                    <button onclick="nextPage()">Дальше 🐾</button>
-                `;
+                title.innerText = "Ты особенная 💕";
+                text.innerText = "Мне с тобой всегда тепло и радостно, как будто котик мурчит рядом.";
             } else if (page === 2) {
-                container.innerHTML = `
-                    <img src="https://placekitten.com/302/200" alt="Очаровательный котик">
-                    <h2>Мои мысли о тебе...</h2>
-                    <p>Когда я думаю о тебе, у меня на лице появляется улыбка, а сердце наполняется радостью.</p>
-                    <button onclick="nextPage()">Продолжить 😻</button>
-                `;
+                title.innerText = "Мои мысли о тебе...";
+                text.innerText = "Когда я думаю о тебе, у меня на лице появляется улыбка, а сердце наполняется радостью.";
             } else if (page === 3) {
-                container.innerHTML = `
-                    <img src="https://placekitten.com/303/200" alt="Романтический котик">
-                    <h2>Почему ты?</h2>
-                    <p>Ты - это сочетание доброты, ума и красоты, которое делает мир вокруг светлее.</p>
-                    <button onclick="nextPage()">Еще 💖</button>
-                `;
-            } else if (page === 4) {
-                container.innerHTML = `
-                    <img src="https://placekitten.com/304/200" alt="Котик с сердечками">
-                    <h2>У меня вопрос...</h2>
-                    <p>Давай будем вместе? 💖</p>
-                    <button onclick="answer(true)">Да! 😻</button>
-                    <button onclick="answer(false)">Нууу... 🤔</button>
-                `;
+                title.innerText = "У меня вопрос...";
+                text.innerText = "Давай будем вместе? 💖";
+                button.innerHTML = "Да! 😻";
+                button.setAttribute("onclick", "answer(true)");
+                noButton = document.createElement("button");
+                noButton.innerText = "Нууу... 🤔";
+                noButton.onclick = function() { answer(false); };
+                button.parentNode.appendChild(noButton);
             }
             page++;
         }
-
         function answer(yes) {
-            const container = document.querySelector('.container');
+            const title = document.getElementById("title");
+            const text = document.getElementById("text");
+            const button = document.getElementById("nextButton");
+            button.style.display = "none";
             if (yes) {
-                container.innerHTML = `
-                    <img src="https://placekitten.com/305/200" alt="Счастливый котик">
-                    <h2>Ура! 💕</h2>
-                    <p>Я так счастлив! Жду нашу первую встречу как котик ждет вкусняшку 😻</p>
-                `;
+                title.innerText = "Ура! 💕";
+                text.innerText = "Я так счастлив! Жду нашу первую встречу как котик ждет вкусняшку 😻";
+                noButton.style.display = "none";
             } else {
-                container.innerHTML = `
-                    <img src="https://placekitten.com/306/200" alt="Грустный котик">
-                    <h2>Эх...</h2>
-                    <p>Я всё равно буду тебя уважать и желать счастья 🐱💕</p>
-                `;
+                title.innerText = "Эх...";
+                text.innerText = "Я всё равно буду тебя уважать и желать счастья 🐱💕";
+                noButton.style.display = "none";
             }
         }
     </script>
